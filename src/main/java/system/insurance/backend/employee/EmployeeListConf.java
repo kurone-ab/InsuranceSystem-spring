@@ -18,7 +18,7 @@ public class EmployeeListConf {
     }
 
     @Bean("SampleEmployeeList")
-    @Qualifier("Employee")
+    @Scope("singleton")
     public EmployeeList SampleEmployeeList(){
         EmployeeList employeeList = new EmployeeListImpl();
         ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeConf.class);
