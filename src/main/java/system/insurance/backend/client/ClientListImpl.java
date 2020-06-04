@@ -24,7 +24,7 @@ public class ClientListImpl extends ArrayList<Client> implements ClientList {
 			client = new JoinedClient();
 			client.setSex(Sex.male);
 			client.setName("박정욱");
-			client.setAge(22);
+			client.setAge(23);
 			this.create(client);
 		}
 	}
