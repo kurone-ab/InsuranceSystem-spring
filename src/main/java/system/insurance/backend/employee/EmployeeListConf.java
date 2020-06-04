@@ -18,7 +18,6 @@ public class EmployeeListConf {
     }
 
     @Bean("SampleEmployeeList")
-    @Scope("singleton")
     public EmployeeList SampleEmployeeList(){
         EmployeeList employeeList = new EmployeeListImpl();
         ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeConf.class);
@@ -27,7 +26,7 @@ public class EmployeeListConf {
         employee.setSex(Sex.male);
         employee.setName("김만수");
         employee.setAge(22);
-        employee.setAuthority(Authority.admin);
+        employee.setAuthority(Authority.developAdmin);
         employee.setUid("ms99@pheonix.com");
         employee.setPassword("kms");
         employeeList.createEmp(employee);
@@ -42,8 +41,8 @@ public class EmployeeListConf {
         employee = ctx.getBean("Employee", Employee.class);
         employee.setSex(Sex.male);
         employee.setName("박정욱");
-        employee.setAge(22);
-        employee.setAuthority(Authority.admin);
+        employee.setAge(23);
+        employee.setAuthority(Authority.underwritingAdmin);
         employee.setUid("jw98@pheonix.com");
         employee.setPassword("pjw");
         employeeList.createEmp(employee);
