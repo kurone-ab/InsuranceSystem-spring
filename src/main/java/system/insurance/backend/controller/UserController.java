@@ -14,7 +14,9 @@ import system.insurance.backend.exception.NoEmployeeException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -43,8 +45,18 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public void accessUserAuthentication(@RequestBody String json, HttpServletResponse res, HttpServletRequest req) {
+    public @ResponseBody ArrayList<TestBody> accessUserAuthentication(@RequestBody String json, HttpServletResponse res) {
         System.out.println(json);
         res.setHeader("Access-Control-Allow-Credentials", "true");
+        ArrayList<TestBody> list = new ArrayList<>();
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String strDate = dateFormat.format(date);
+        list.add(new TestBody(1, "1", "1", strDate));
+        list.add(new TestBody(2, "2", "2", strDate));
+        list.add(new TestBody(3, "3", "3", strDate));
+        list.add(new TestBody(4, "4", "4", strDate));
+        list.sort((o1, o2) -> 0);
+        return list;
     }
 }
