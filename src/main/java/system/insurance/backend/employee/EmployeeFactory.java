@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-public class EmployeeConf {
+public class EmployeeFactory {
 
     @Bean("Employee")
     @Scope("prototype")

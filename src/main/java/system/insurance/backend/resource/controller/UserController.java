@@ -1,33 +1,32 @@
-package system.insurance.backend.controller;
+package system.insurance.backend.resource.controller;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
-import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.employee.EmployeeList;
-import system.insurance.backend.employee.EmployeeListConf;
+import system.insurance.backend.employee.EmployeeListFactory;
 import system.insurance.backend.employee.ResponseEmployee;
 import system.insurance.backend.exception.NoEmployeeException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.File;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    private final ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeListConf.class);
+    private final ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeListFactory.class);
     private final EmployeeList sampleEmployeeList = ctx.getBean("SampleEmployeeList", EmployeeList.class);
 
     @PostMapping("/login")
     public ResponseEmployee loginUserCertification(@RequestBody String json, HttpServletResponse res) {
         System.out.println(json);
-        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         JSONParser parser = new JSONParser(json);
         Map<String, Object> parsedJson;
         try {
@@ -44,19 +43,12 @@ public class UserController {
         }
     }
 
-    @PostMapping("/auth")
-    public @ResponseBody ArrayList<TestBody> accessUserAuthentication(@RequestBody String json, HttpServletResponse res) {
-        System.out.println(json);
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        ArrayList<TestBody> list = new ArrayList<>();
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
-        list.add(new TestBody(1, "1", "1", strDate));
-        list.add(new TestBody(2, "2", "2", strDate));
-        list.add(new TestBody(3, "3", "3", strDate));
-        list.add(new TestBody(4, "4", "4", strDate));
-        list.sort((o1, o2) -> 0);
-        return list;
+    @GetMapping("/file{id}")
+    @ResponseBody
+    public FileSystemResource getFile(@PathVariable("id") String id, HttpServletResponse res){
+        res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+        res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
+        System.out.println(id);
+        return new FileSystemResource(new File("E://오버로드+13.pdf"));
     }
 }

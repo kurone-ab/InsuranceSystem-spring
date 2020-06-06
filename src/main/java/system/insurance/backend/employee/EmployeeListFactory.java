@@ -1,6 +1,5 @@
 package system.insurance.backend.employee;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import system.insurance.backend.client.Sex;
 
 @Configuration
-public class EmployeeListConf {
+public class EmployeeListFactory {
 
     @Bean("EmployeeList")
     @Scope("prototype")
@@ -20,7 +19,7 @@ public class EmployeeListConf {
     @Bean("SampleEmployeeList")
     public EmployeeList SampleEmployeeList(){
         EmployeeList employeeList = new EmployeeListImpl();
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeConf.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeFactory.class);
         Employee employee;
         employee = ctx.getBean("Employee", Employee.class);
         employee.setSex(Sex.male);
