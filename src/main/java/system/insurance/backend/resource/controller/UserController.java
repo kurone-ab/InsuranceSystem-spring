@@ -2,28 +2,32 @@ package system.insurance.backend.resource.controller;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import system.insurance.backend.employee.Employee;
-import system.insurance.backend.employee.EmployeeList;
-import system.insurance.backend.employee.EmployeeListFactory;
-import system.insurance.backend.employee.ResponseEmployee;
 import system.insurance.backend.exception.NoEmployeeException;
+import system.insurance.backend.resource.reponse.ResponseEmployee;
+import system.insurance.backend.resource.service.UserCertificationService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/api")
+@Controller
+@RequestMapping("/user")
 public class UserController {
-    private final ApplicationContext ctx = new AnnotationConfigApplicationContext(EmployeeListFactory.class);
-    private final EmployeeList sampleEmployeeList = ctx.getBean("SampleEmployeeList", EmployeeList.class);
+
+    private final UserCertificationService userCertificationService;
+
+    @Autowired
+    public UserController(UserCertificationService userCertificationService) {
+        this.userCertificationService = userCertificationService;
+    }
 
     @PostMapping("/login")
+    @ResponseBody
     public ResponseEmployee loginUserCertification(@RequestBody String json, HttpServletResponse res) {
         System.out.println(json);
         res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
@@ -32,14 +36,10 @@ public class UserController {
         try {
             parsedJson = parser.object();
             String id = (String) parsedJson.get("id"), password = (String) parsedJson.get("password");
-            Employee employee = sampleEmployeeList.retrieveByUid(id);
-            if (employee.getPassword().equals(password)) {
-                System.out.println("login complete");
-                return new ResponseEmployee(employee.getId(), employee.getName(), employee.getAuthority().name());
-            } else return new ResponseEmployee("비밀번호를 다시 확인해주세요!");
+            return this.userCertificationService.login(id, password);
         } catch (ParseException | NoEmployeeException e) {
             e.printStackTrace();
-            return new ResponseEmployee(e.getMessage());
+            return null;
         }
     }
 

@@ -1,6 +1,5 @@
 package system.insurance.backend.contract;
 
-import system.insurance.backend.employee.SalesPerson;
 import system.insurance.backend.exception.NoContractException;
 
 import java.util.Date;
@@ -14,8 +13,6 @@ public interface ContractList {
     ContractListImpl retrieveByClientId(int clientId) throws NoContractException;
 
     Contract retrieveInsIdClientId(int insuranceId, int clientId) throws NoContractException;
-
-    Contract retrieveBySalesPerson(SalesPerson salesPerson) throws NoContractException;
 
     ContractListImpl retrieveByInsId(int insuranceId) throws NoContractException;
 

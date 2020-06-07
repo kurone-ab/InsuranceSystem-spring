@@ -1,80 +1,44 @@
 package system.insurance.backend.employee;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import system.insurance.backend.client.Sex;
 
-public abstract class Employee {
-    private static int size;
+import javax.persistence.*;
+import java.io.Serializable;
+
+
+@Slf4j
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private int age;
-    private final int id;
     private String uid;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Sex sex;
     private String name;
     private String phoneNum;
+    @Enumerated(EnumType.STRING)
     private Authority authority;
+    private String dutyResponsibility;
 
-    public Employee() {
-        this.id = ++size;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
+    @Builder
+    public Employee(String uid, String password, String name, int age, Sex sex, String phoneNum, Authority authority, String dutyResponsibility) {
         this.uid = uid;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    //��å
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
+        this.age = age;
+        this.sex = sex;
         this.phoneNum = phoneNum;
-    }
-
-    public Authority getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(Authority authority) {
         this.authority = authority;
+        this.dutyResponsibility = dutyResponsibility;
     }
 }

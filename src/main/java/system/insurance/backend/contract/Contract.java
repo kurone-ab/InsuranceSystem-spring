@@ -1,7 +1,5 @@
 package system.insurance.backend.contract;
 
-import system.insurance.backend.employee.SalesPerson;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +14,6 @@ public class Contract {
 	private int insuranceId;
 	private double lossRate;
 	private Date startDate;
-	private SalesPerson salesPerson;
 	private int reinsuranceInfo;
 
 	public boolean equals(Object o) {
@@ -106,14 +103,6 @@ public class Contract {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-
-	public SalesPerson getSalesPerson() {
-		return salesPerson;
-	}
-
-	public void setSalesPerson(SalesPerson salesPerson) {
-		this.salesPerson = salesPerson;
 	}
 
 	public int getReinsuranceInfo() {

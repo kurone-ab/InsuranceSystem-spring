@@ -1,6 +1,5 @@
 package system.insurance.backend.contract;
 
-import system.insurance.backend.employee.SalesPerson;
 import system.insurance.backend.exception.NoContractException;
 
 import java.util.ArrayList;
@@ -52,14 +51,14 @@ public class ContractListImpl extends ArrayList<Contract> implements ContractLis
 		throw new NoContractException();
 	}
 
-	public Contract retrieveBySalesPerson(SalesPerson salesPerson) throws NoContractException {
-		for (Contract contract : this) {
-			if (contract.getSalesPerson() == salesPerson) {
-				return contract;
-			}
-		}
-		throw new NoContractException();
-	}
+//	public Contract retrieveBySalesPerson(SalesPerson salesPerson) throws NoContractException {
+//		for (Contract contract : this) {
+//			if (contract.getSalesPerson() == salesPerson) {
+//				return contract;
+//			}
+//		}
+//		throw new NoContractException();
+//	}
 
 	public ContractListImpl retrieveByInsId(int insuranceId) throws NoContractException {
 		ContractListImpl temp = new ContractListImpl();
