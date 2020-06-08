@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ResponseAnnouncementInfo {
     private int id;
     private String title;
-    private int authId;
-    private String authName;
+    private String content;
+    private int authorId;
+    private String authorName;
     private String date;
     private boolean priority;
 
     @Builder
-    public ResponseAnnouncementInfo(int id, String title, int authId, String authName, String date, boolean priority) {
+    public ResponseAnnouncementInfo(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
         this.id = id;
         this.title = title;
-        this.authId = authId;
-        this.authName = authName;
+        this.content = content;
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.date = date;
         this.priority = priority;
     }
