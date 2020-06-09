@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import system.insurance.backend.announcement.Announcement;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.reponse.ResponseAnnouncementContent;
-import system.insurance.backend.resource.reponse.ResponseAnnouncementInfo;
+import system.insurance.backend.resource.response.ResponseAnnouncementContent;
+import system.insurance.backend.resource.response.ResponseAnnouncement;
 import system.insurance.backend.resource.repository.AnnouncementRepository;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
@@ -28,25 +28,25 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<ResponseAnnouncementInfo> findAll() {
+    public List<ResponseAnnouncement> findAll() {
         List<Announcement> announcements = this.announcementRepository.findAll();
         return this.createResponseData(announcements);
     }
 
     @Override
-    public List<ResponseAnnouncementInfo> findAllByAuthor(int id) throws NoEmployeeException {
+    public List<ResponseAnnouncement> findAllByAuthor(int id) throws NoEmployeeException {
         List<Announcement> announcements = this.announcementRepository.findAllByAuthor(this.employeeRepository.findById(id).orElseThrow(NoEmployeeException::new));
         return this.createResponseData(announcements);
     }
 
     @Override
-    public List<ResponseAnnouncementInfo> findAllByDate(String date) {
+    public List<ResponseAnnouncement> findAllByDate(String date) {
         List<Announcement> announcements = this.announcementRepository.findAllByDate(Date.valueOf(date));
         return this.createResponseData(announcements);
     }
 
     @Override
-    public List<ResponseAnnouncementInfo> findAllByTitle(String title) {
+    public List<ResponseAnnouncement> findAllByTitle(String title) {
         List<Announcement> announcements = this.announcementRepository.findAllByTitle(title);
         return this.createResponseData(announcements);
     }
@@ -58,20 +58,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                 .build();
     }
 
-    private List<ResponseAnnouncementInfo> createResponseData(List<Announcement> announcements){
-        List<ResponseAnnouncementInfo> responseAnnouncementInfos = new ArrayList<>();
+    private List<ResponseAnnouncement> createResponseData(List<Announcement> announcements){
+        List<ResponseAnnouncement> responseAnnouncements = new ArrayList<>();
         for (Announcement announcement : announcements) {
             Employee author = announcement.getAuthor();
-            responseAnnouncementInfos.add(ResponseAnnouncementInfo.builder()
+            responseAnnouncements.add(ResponseAnnouncement.builder()
                     .id(announcement.getId())
                     .title(announcement.getTitle())
-                    .authId(author.getId())
-                    .authName(author.getAuthority().getAuth())
+                    .content(announcement.getContent())
+                    .authorId(author.getId())
+                    .authorName(author.getAuthority().getAuth())
                     .date(new SimpleDateFormat("yyyy-MM-dd").format(announcement.getDate()))
                     .priority(announcement.isPriority())
                     .build());
 
         }
-        return responseAnnouncementInfos;
+        return responseAnnouncements;
     }
 }

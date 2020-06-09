@@ -1,4 +1,4 @@
-package system.insurance.backend.resource.reponse;
+package system.insurance.backend.resource.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Getter
 @ResponseBody
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseAnnouncementInfo {
+public class ResponseAnnouncement {
     private int id;
     private String title;
     private String content;
@@ -20,7 +20,7 @@ public class ResponseAnnouncementInfo {
     private boolean priority;
 
     @Builder
-    public ResponseAnnouncementInfo(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
+    public ResponseAnnouncement(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
         this.id = id;
         this.title = title;
         this.content = content;

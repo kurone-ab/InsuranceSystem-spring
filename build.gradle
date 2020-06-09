@@ -33,6 +33,7 @@ dependencies {
     compile group: 'junit', name: 'junit', version: '4.13'
     annotationProcessor('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 }
 

@@ -1,4 +1,4 @@
-package system.insurance.backend.resource.reponse;
+package system.insurance.backend.resource.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;

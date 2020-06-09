@@ -8,7 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.reponse.ResponseEmployee;
+import system.insurance.backend.resource.response.ResponseEmployee;
 import system.insurance.backend.resource.service.UserCertificationService;
 
 import javax.servlet.http.HttpServletResponse;

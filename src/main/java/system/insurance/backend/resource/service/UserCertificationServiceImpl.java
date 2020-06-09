@@ -1,12 +1,11 @@
 package system.insurance.backend.resource.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import system.insurance.backend.employee.Authority;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.reponse.ResponseEmployee;
+import system.insurance.backend.resource.response.ResponseEmployee;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
 import java.util.Optional;

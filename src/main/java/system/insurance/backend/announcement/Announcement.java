@@ -1,6 +1,7 @@
 package system.insurance.backend.announcement;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class Announcement {
     private String content;
     private boolean priority;
 
+    @Builder
     public Announcement(String title, Date date, Employee author, String content, boolean priority) {
         this.title = title;
         this.date = date;

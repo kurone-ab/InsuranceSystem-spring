@@ -3,7 +3,7 @@ package system.insurance.backend.resource.service;
 import org.springframework.stereotype.Service;
 import system.insurance.backend.employee.Authority;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.reponse.ResponseEmployee;
+import system.insurance.backend.resource.response.ResponseEmployee;
 
 @Service
 public interface UserCertificationService {
