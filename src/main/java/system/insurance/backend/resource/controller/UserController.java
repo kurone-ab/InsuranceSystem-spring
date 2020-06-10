@@ -29,7 +29,6 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEmployee loginUserCertification(@RequestBody String json, HttpServletResponse res) {
-        System.out.println(json);
         res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         JSONParser parser = new JSONParser(json);
         Map<String, Object> parsedJson;
