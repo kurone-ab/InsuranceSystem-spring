@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import system.insurance.backend.resource.response.InsuranceInfoDTO;
+import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
+import system.insurance.backend.resource.dto.InsuranceDTO;
+import system.insurance.backend.resource.dto.InsuranceInfoDTO;
 import system.insurance.backend.resource.service.InsuranceService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/insurance")
@@ -23,9 +27,20 @@ public class InsuranceController {
     public InsuranceInfoDTO getInsuranceInfoList() {
         return InsuranceInfoDTO.builder()
                 .companyList(this.insuranceService.getInsuranceCompanyList())
-                .productList(this.insuranceService.getInsuranceProductList())
                 .typeList(this.insuranceService.getInsuranceTypeList())
+                .productNameList(this.insuranceService.getProductNameList())
                 .build();
+    }
+
+    @GetMapping("/product")
+    public List<InsuranceDTO> getProductList() {
+        return this.insuranceService.getInsuranceProductList();
+    }
+
+    @GetMapping("/product/developing")
+    public List<DevelopingInsuranceDTO> getDevelopingInsuranceList() {
+        System.out.println("controller");
+        return this.insuranceService.getDevelopingInsuranceList();
     }
 
 }

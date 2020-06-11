@@ -2,7 +2,7 @@ package system.insurance.backend.resource.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import system.insurance.backend.resource.response.AnnouncementDTO;
+import system.insurance.backend.resource.dto.AnnouncementDTO;
 import system.insurance.backend.resource.service.AnnouncementService;
 
 import java.util.List;

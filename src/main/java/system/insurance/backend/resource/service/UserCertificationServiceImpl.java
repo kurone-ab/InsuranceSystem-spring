@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import system.insurance.backend.employee.Authority;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.response.EmployeeDTO;
+import system.insurance.backend.resource.dto.EmployeeDTO;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
 import java.util.Optional;

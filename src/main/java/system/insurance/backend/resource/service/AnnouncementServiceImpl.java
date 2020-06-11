@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import system.insurance.backend.announcement.Announcement;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.response.AnnouncementDTO;
+import system.insurance.backend.resource.dto.AnnouncementDTO;
 import system.insurance.backend.resource.repository.AnnouncementRepository;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
@@ -61,7 +61,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
                     .content(announcement.getContent())
                     .authorId(author.getId())
                     .authorName(author.getAuthority().getAuth())
-                    .date(new SimpleDateFormat("yyyy-MM-dd").format(announcement.getDate()))
+                    .date(announcement.getDate())
                     .priority(announcement.isPriority())
                     .build());
 

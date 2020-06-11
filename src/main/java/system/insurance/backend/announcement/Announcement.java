@@ -1,18 +1,16 @@
 package system.insurance.backend.announcement;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import system.insurance.backend.employee.Employee;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Slf4j
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Announcement {
     @Id

@@ -1,9 +1,6 @@
 package system.insurance.backend.employee;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import system.insurance.backend.client.Sex;
 
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @Slf4j
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Employee implements Serializable {
     @Id

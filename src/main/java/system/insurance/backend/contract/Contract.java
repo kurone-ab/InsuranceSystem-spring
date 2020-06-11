@@ -1,5 +1,7 @@
 package system.insurance.backend.contract;
 
+import system.insurance.backend.insurance.InsuranceCompany;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -116,7 +118,7 @@ public class Contract {
 	public static class JointAcquisition_Info {
 		private int id;
 		private double equityRatio;
-		private InsuranceCo insuranceCo;
+		private InsuranceCompany insuranceCompany;
 
 		public int getId() {
 			return id;
@@ -134,12 +136,12 @@ public class Contract {
 			this.equityRatio = equityRatio;
 		}
 
-		public InsuranceCo getInsuranceCo() {
-			return insuranceCo;
+		public InsuranceCompany getInsuranceCompany() {
+			return insuranceCompany;
 		}
 
-		public void setInsuranceCo(InsuranceCo insuranceCo) {
-			this.insuranceCo = insuranceCo;
+		public void setInsuranceCompany(InsuranceCompany insuranceCompany) {
+			this.insuranceCompany = insuranceCompany;
 		}
 	}
 

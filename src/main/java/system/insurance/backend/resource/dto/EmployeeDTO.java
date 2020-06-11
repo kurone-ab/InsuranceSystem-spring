@@ -1,10 +1,9 @@
-package system.insurance.backend.resource.response;
+package system.insurance.backend.resource.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
