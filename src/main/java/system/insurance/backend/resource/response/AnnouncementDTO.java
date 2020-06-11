@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Getter
-@ResponseBody
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseAnnouncement {
+public class AnnouncementDTO {
     private int id;
     private String title;
     private String content;
@@ -20,7 +19,7 @@ public class ResponseAnnouncement {
     private boolean priority;
 
     @Builder
-    public ResponseAnnouncement(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
+    public AnnouncementDTO(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
         this.id = id;
         this.title = title;
         this.content = content;

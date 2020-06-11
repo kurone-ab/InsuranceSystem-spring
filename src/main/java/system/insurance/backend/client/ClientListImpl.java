@@ -10,23 +10,23 @@ public class ClientListImpl extends ArrayList<Client> implements ClientList {
 
 	public ClientListImpl(boolean createSample) {
 		super();
-		if (createSample) {
-			Client client = new JoinedClient();
-			client.setSex(Sex.male);
-			client.setName("김만수");
-			client.setAge(22);
-			this.create(client);
-			client = new JoinedClient();
-			client.setSex(Sex.male);
-			client.setName("박성제");
-			client.setAge(22);
-			this.create(client);
-			client = new JoinedClient();
-			client.setSex(Sex.male);
-			client.setName("박정욱");
-			client.setAge(23);
-			this.create(client);
-		}
+//		if (createSample) {
+//			Client client = new JoinedClient();
+//			client.setSex(Sex.male);
+//			client.setName("김만수");
+//			client.setAge(22);
+//			this.create(client);
+//			client = new JoinedClient();
+//			client.setSex(Sex.male);
+//			client.setName("박성제");
+//			client.setAge(22);
+//			this.create(client);
+//			client = new JoinedClient();
+//			client.setSex(Sex.male);
+//			client.setName("박정욱");
+//			client.setAge(23);
+//			this.create(client);
+//		}
 	}
 
 	public ClientListImpl() {

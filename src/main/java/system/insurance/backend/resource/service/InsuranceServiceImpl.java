@@ -3,6 +3,7 @@ package system.insurance.backend.resource.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import system.insurance.backend.contract.InsuranceCo;
+import system.insurance.backend.insurance.InsuranceType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,18 @@ public class InsuranceServiceImpl implements InsuranceService {
     public Map<String, String> getInsuranceCompanyList() {
         Map<String, String> companyList = new HashMap<>();
         for (InsuranceCo value : InsuranceCo.values()) {
-            companyList.put(value.name(), value.getTitle());
+            companyList.put(value.name(), value.getDescription());
         }
         return companyList;
+    }
+
+    @Override
+    public Map<String, String> getInsuranceTypeList() {
+        Map<String, String> typeList = new HashMap<>();
+        for (InsuranceType value : InsuranceType.values()) {
+            typeList.put(value.name(), value.getDescription());
+        }
+        return typeList;
     }
 
     @Override

@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class ResponseInsuranceInfo {
+public class InsuranceInfoDTO {
     private final Map<String, String> companyList;
     private final List<String> productList;
     private final Map<String, String> typeList;
 
     @Builder
-    public ResponseInsuranceInfo(Map<String, String> companyList, List<String> productList, Map<String, String> typeList){
+    public InsuranceInfoDTO(Map<String, String> companyList, List<String> productList, Map<String, String> typeList){
         this.companyList = companyList;
         this.productList = productList;
         this.typeList = typeList;

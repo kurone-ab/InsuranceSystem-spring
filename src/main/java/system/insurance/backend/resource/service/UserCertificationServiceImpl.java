@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import system.insurance.backend.employee.Authority;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.response.ResponseEmployee;
+import system.insurance.backend.resource.response.EmployeeDTO;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
 import java.util.Optional;
@@ -21,10 +21,10 @@ public class UserCertificationServiceImpl implements UserCertificationService {
     }
 
     @Override
-    public ResponseEmployee login(String uid, String password) throws NoEmployeeException {
+    public EmployeeDTO login(String uid, String password) throws NoEmployeeException {
         Optional<Employee> dbData = this.employeeRepository.findByUidAndPassword(uid, password);
         Employee employee = dbData.orElseThrow(NoEmployeeException::new);
-        return ResponseEmployee.builder()
+        return EmployeeDTO.builder()
                 .id(employee.getId())
                 .name(employee.getName())
                 .auth(employee.getAuthority().getAuth())
