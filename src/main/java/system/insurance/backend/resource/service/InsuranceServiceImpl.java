@@ -6,14 +6,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import system.insurance.backend.insurance.*;
 import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
 import system.insurance.backend.resource.dto.InsuranceDTO;
+import system.insurance.backend.resource.dto.InsuranceDetailsDTO;
 import system.insurance.backend.resource.repository.GuaranteeInfoRepository;
 import system.insurance.backend.resource.repository.InsuranceRepository;
 import system.insurance.backend.resource.repository.SalesTargetRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class InsuranceServiceImpl implements InsuranceService {
@@ -92,5 +90,23 @@ public class InsuranceServiceImpl implements InsuranceService {
                 .name(insurance.getName())
                 .build()));
         return dtoList;
+    }
+
+    @Override
+    public Optional<InsuranceDetailsDTO> getInsuranceDetails(int id) {
+        Optional<Insurance> insurance = this.insuranceRepository.findById(id);
+        if (insurance.isPresent()) {
+            List<GuaranteeInfo> guaranteeInfoList = this.guaranteeRepository.findAllByInsurance(insurance.get());
+            List<SalesTarget> salesTargetList = this.salesTargetRepository.findAllByInsurance(insurance.get());
+            List<String> salesTargetStringList = new ArrayList<>();
+            Map<String, Long> guaranteeInfoStringList = new HashMap<>();
+            guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getGuaranteeCondition(), guaranteeInfo.getGuaranteeLimit()));
+            salesTargetList.forEach(salesTarget -> salesTargetStringList.add(salesTarget.getTarget()));
+            return Optional.of(InsuranceDetailsDTO.builder()
+                    .guaranteeInfos(guaranteeInfoStringList)
+                    .salesTarget(salesTargetStringList)
+                    .build());
+        }
+        return Optional.empty();
     }
 }

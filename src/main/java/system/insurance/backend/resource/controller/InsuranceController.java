@@ -1,12 +1,11 @@
 package system.insurance.backend.resource.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
 import system.insurance.backend.resource.dto.InsuranceDTO;
+import system.insurance.backend.resource.dto.InsuranceDetailsDTO;
 import system.insurance.backend.resource.dto.InsuranceInfoDTO;
 import system.insurance.backend.resource.service.InsuranceService;
 
@@ -41,6 +40,12 @@ public class InsuranceController {
     public List<DevelopingInsuranceDTO> getDevelopingInsuranceList() {
         System.out.println("controller");
         return this.insuranceService.getDevelopingInsuranceList();
+    }
+
+    @GetMapping("/product")
+    public ResponseEntity<InsuranceDetailsDTO> getInsuranceDetails(@RequestParam(name = "id") int id){
+        System.out.println(id);
+        return ResponseEntity.of(this.insuranceService.getInsuranceDetails(id));
     }
 
 }
