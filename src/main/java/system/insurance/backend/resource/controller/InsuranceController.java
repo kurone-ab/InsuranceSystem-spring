@@ -31,11 +31,6 @@ public class InsuranceController {
                 .build();
     }
 
-    @GetMapping("/product")
-    public List<InsuranceDTO> getProductList() {
-        return this.insuranceService.getInsuranceProductList();
-    }
-
     @GetMapping("/product/developing")
     public List<DevelopingInsuranceDTO> getDevelopingInsuranceList() {
         System.out.println("controller");
