@@ -5,17 +5,16 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.reponse.ResponseEmployee;
+import system.insurance.backend.resource.dto.EmployeeDTO;
 import system.insurance.backend.resource.service.UserCertificationService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -28,8 +27,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEmployee loginUserCertification(@RequestBody String json, HttpServletResponse res) {
-        System.out.println(json);
+    public EmployeeDTO loginUserCertification(@RequestBody String json, HttpServletResponse res) {
         res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         JSONParser parser = new JSONParser(json);
         Map<String, Object> parsedJson;

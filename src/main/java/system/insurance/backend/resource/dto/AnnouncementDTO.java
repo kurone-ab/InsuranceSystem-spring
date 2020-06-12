@@ -1,26 +1,26 @@
-package system.insurance.backend.resource.reponse;
+package system.insurance.backend.resource.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.sql.Date;
 
 
 @Getter
-@ResponseBody
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseAnnouncementInfo {
+public class AnnouncementDTO {
     private int id;
     private String title;
     private String content;
     private int authorId;
     private String authorName;
-    private String date;
+    private Date date;
     private boolean priority;
 
     @Builder
-    public ResponseAnnouncementInfo(int id, String title, String content, int authorId, String authorName, String date, boolean priority) {
+    public AnnouncementDTO(int id, String title, String content, int authorId, String authorName, Date date, boolean priority) {
         this.id = id;
         this.title = title;
         this.content = content;

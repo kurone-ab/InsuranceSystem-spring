@@ -2,8 +2,7 @@ package system.insurance.backend.resource.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import system.insurance.backend.resource.reponse.ResponseAnnouncementContent;
-import system.insurance.backend.resource.reponse.ResponseAnnouncementInfo;
+import system.insurance.backend.resource.dto.AnnouncementDTO;
 import system.insurance.backend.resource.service.AnnouncementService;
 
 import java.util.List;
@@ -21,12 +20,7 @@ public class AnnouncementController {
 
     @GetMapping("/info")
     @ResponseBody
-    public List<ResponseAnnouncementInfo> getAllAnnouncement() {
+    public List<AnnouncementDTO> getAllAnnouncement() {
         return this.announcementService.findAll();
-    }
-
-    @GetMapping("/content{id}")
-    public ResponseAnnouncementContent getContent(@PathVariable String id){
-        return this.announcementService.getContent(Integer.parseInt(id));
     }
 }
