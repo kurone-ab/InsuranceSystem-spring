@@ -11,9 +11,9 @@ import system.insurance.backend.resource.repository.AnnouncementRepository;
 import system.insurance.backend.resource.repository.EmployeeRepository;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -51,18 +51,25 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return this.createResponseData(announcements);
     }
 
-    private List<AnnouncementDTO> createResponseData(List<Announcement> announcements){
+    @Override
+    public Optional<AnnouncementDTO> findContent(int id) {
+        Optional<Announcement> announcement = this.announcementRepository.findById(id);
+        return announcement.map(value -> AnnouncementDTO.builder()
+                .content(value.getContent()).id(id).priority(value.isPriority()).build());
+    }
+
+    private List<AnnouncementDTO> createResponseData(List<Announcement> announcements) {
         List<AnnouncementDTO> announcementDTOS = new ArrayList<>();
         for (Announcement announcement : announcements) {
             Employee author = announcement.getAuthor();
+            boolean priority = announcement.isPriority();
             announcementDTOS.add(AnnouncementDTO.builder()
                     .id(announcement.getId())
                     .title(announcement.getTitle())
-                    .content(announcement.getContent())
-                    .authorId(author.getId())
+                    .content(priority ? announcement.getContent() : null)
                     .authorName(author.getAuthority().getAuth())
                     .date(announcement.getDate())
-                    .priority(announcement.isPriority())
+                    .priority(priority)
                     .build());
 
         }
