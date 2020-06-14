@@ -1,5 +1,6 @@
 package system.insurance.backend.resource.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import system.insurance.backend.insurance.Insurance;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InsuranceDTO {
     private final int id;
     private final InsuranceType type;

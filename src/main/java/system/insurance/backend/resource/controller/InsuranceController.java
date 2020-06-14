@@ -27,13 +27,12 @@ public class InsuranceController {
         return InsuranceInfoDTO.builder()
                 .companyList(this.insuranceService.getInsuranceCompanyList())
                 .typeList(this.insuranceService.getInsuranceTypeList())
-                .productNameList(this.insuranceService.getProductNameList())
+                .productList(this.insuranceService.getProductList())
                 .build();
     }
 
     @GetMapping("/product/developing")
     public List<DevelopingInsuranceDTO> getDevelopingInsuranceList() {
-        System.out.println("controller");
         return this.insuranceService.getDevelopingInsuranceList();
     }
 

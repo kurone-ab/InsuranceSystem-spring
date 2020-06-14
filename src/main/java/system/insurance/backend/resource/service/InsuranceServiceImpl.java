@@ -45,11 +45,16 @@ public class InsuranceServiceImpl implements InsuranceService {
     }
 
     @Override
-    public Map<Integer, String> getProductNameList() {
-        Map<Integer, String> productNameList = new HashMap<>();
+    public List<InsuranceDTO> getProductList() {
+        List<InsuranceDTO> productList = new ArrayList<>();
         List<Insurance> insuranceList = this.insuranceRepository.findAll();
-        insuranceList.forEach(insurance -> productNameList.put(insurance.getId(), insurance.getName()));
-        return productNameList;
+        insuranceList.forEach(insurance -> productList.add(InsuranceDTO.builder()
+                .id(insurance.getId())
+                .company(insurance.getCompany())
+                .status(insurance.getStatus())
+                .name(insurance.getName())
+                .build()));
+        return productList;
     }
 
     @Override
