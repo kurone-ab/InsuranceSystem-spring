@@ -3,12 +3,14 @@ package system.insurance.backend.resource.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
 import system.insurance.backend.resource.dto.InsuranceDTO;
 import system.insurance.backend.resource.dto.InsuranceDetailsDTO;
 import system.insurance.backend.resource.dto.InsuranceInfoDTO;
 import system.insurance.backend.resource.service.InsuranceService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,6 +41,16 @@ public class InsuranceController {
     @GetMapping("/product")
     public ResponseEntity<InsuranceDetailsDTO> getInsuranceDetails(@RequestParam(name = "id") int id){
         return ResponseEntity.of(this.insuranceService.getInsuranceDetails(id));
+    }
+
+    @PostMapping("/authorize")
+    public ResponseEntity<Boolean> uploadAuthorizationDoc(@RequestParam(name = "file")MultipartFile file) {
+        try {
+            return ResponseEntity.of(this.insuranceService.uploadAuthorizationDoc(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(false);
+        }
     }
 
 }

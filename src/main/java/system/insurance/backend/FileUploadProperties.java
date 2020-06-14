@@ -9,5 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class FileUploadProperties {
     private String uploadDir;
+    private String insuranceAuthorizationDoc;
 }
 

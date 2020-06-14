@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "file.insurance-authorization-doc",
+      "type": "java.lang.String",
+      "description": "Description for file.insurance-authorization-doc."
+    }
+  ] }
