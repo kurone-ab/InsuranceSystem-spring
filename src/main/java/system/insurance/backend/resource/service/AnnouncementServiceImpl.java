@@ -30,6 +30,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public List<AnnouncementDTO> findAll() {
         List<Announcement> announcements = this.announcementRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        System.out.println(announcements.toString());
         return this.createResponseData(announcements);
     }
 

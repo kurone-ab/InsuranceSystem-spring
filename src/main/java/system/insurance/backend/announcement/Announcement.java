@@ -12,6 +12,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Announcement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
