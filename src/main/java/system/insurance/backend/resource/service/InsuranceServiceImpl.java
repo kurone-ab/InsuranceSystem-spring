@@ -58,33 +58,6 @@ public class InsuranceServiceImpl implements InsuranceService {
     }
 
     @Override
-    @ResponseBody
-    public List<InsuranceDTO> getInsuranceProductList() {
-        List<InsuranceDTO> list = new ArrayList<>();
-        List<Insurance> insuranceList = this.insuranceRepository.findAll();
-        for (Insurance insurance : insuranceList) {
-            List<GuaranteeInfo> guaranteeInfoList = this.guaranteeRepository.findAllByInsurance(insurance);
-            List<SalesTarget> salesTargetList = this.salesTargetRepository.findAllByInsurance(insurance);
-            List<String> salesTargetStringList = new ArrayList<>();
-            Map<String, Long> guaranteeInfoStringList = new HashMap<>();
-            guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getGuaranteeCondition(), guaranteeInfo.getGuaranteeLimit()));
-            salesTargetList.forEach(salesTarget -> salesTargetStringList.add(salesTarget.getTarget()));
-            list.add(InsuranceDTO.builder()
-                    .company(insurance.getCompany())
-                    .guaranteeInfos(guaranteeInfoStringList)
-                    .salesTarget(salesTargetStringList)
-                    .id(insurance.getId())
-                    .name(insurance.getName())
-                    .status(insurance.getStatus())
-                    .type(insurance.getType())
-                    .author(insurance.getAuthor().getName())
-                    .date(insurance.getDate())
-                    .build());
-        }
-        return list;
-    }
-
-    @Override
     public List<DevelopingInsuranceDTO> getDevelopingInsuranceList() {
         List<Insurance> list = this.insuranceRepository.findAllByStatus(InsuranceStatus.DEVELOPING);
         List<DevelopingInsuranceDTO> dtoList = new ArrayList<>();
@@ -101,15 +74,19 @@ public class InsuranceServiceImpl implements InsuranceService {
     public Optional<InsuranceDetailsDTO> getInsuranceDetails(int id) {
         Optional<Insurance> insurance = this.insuranceRepository.findById(id);
         if (insurance.isPresent()) {
-            List<GuaranteeInfo> guaranteeInfoList = this.guaranteeRepository.findAllByInsurance(insurance.get());
-            List<SalesTarget> salesTargetList = this.salesTargetRepository.findAllByInsurance(insurance.get());
+            Insurance i = insurance.get();
+            List<GuaranteeInfo> guaranteeInfoList = this.guaranteeRepository.findAllByInsurance(i);
+            List<SalesTarget> salesTargetList = this.salesTargetRepository.findAllByInsurance(i);
             List<String> salesTargetStringList = new ArrayList<>();
             Map<String, Long> guaranteeInfoStringList = new HashMap<>();
             guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getGuaranteeCondition(), guaranteeInfo.getGuaranteeLimit()));
             salesTargetList.forEach(salesTarget -> salesTargetStringList.add(salesTarget.getTarget()));
             return Optional.of(InsuranceDetailsDTO.builder()
-                    .guaranteeInfos(guaranteeInfoStringList)
-                    .salesTarget(salesTargetStringList)
+                    .id(i.getId())
+                    .name(i.getName())
+                    .type(i.getType())
+                    .guaranteeInfoList(guaranteeInfoStringList)
+                    .salesTargetList(salesTargetStringList)
                     .build());
         }
         return Optional.empty();

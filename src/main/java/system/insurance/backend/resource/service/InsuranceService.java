@@ -12,7 +12,6 @@ public interface InsuranceService {
     Map<String, String> getInsuranceCompanyList();
     Map<String, String> getInsuranceTypeList();
     List<InsuranceDTO> getProductList();
-    List<InsuranceDTO> getInsuranceProductList();
     List<DevelopingInsuranceDTO> getDevelopingInsuranceList();
     Optional<InsuranceDetailsDTO> getInsuranceDetails(int id);
 }

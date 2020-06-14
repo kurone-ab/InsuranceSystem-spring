@@ -38,7 +38,6 @@ public class InsuranceController {
 
     @GetMapping("/product")
     public ResponseEntity<InsuranceDetailsDTO> getInsuranceDetails(@RequestParam(name = "id") int id){
-        System.out.println(id);
         return ResponseEntity.of(this.insuranceService.getInsuranceDetails(id));
     }
 
