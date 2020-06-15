@@ -3,6 +3,7 @@ package system.insurance.backend.resource.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.ResponseBody;
 import system.insurance.backend.insurance.Insurance;
 import system.insurance.backend.insurance.InsuranceCompany;
 import system.insurance.backend.insurance.InsuranceStatus;

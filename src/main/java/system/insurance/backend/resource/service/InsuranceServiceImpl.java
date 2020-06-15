@@ -70,6 +70,7 @@ public class InsuranceServiceImpl implements InsuranceService {
                 .id(insurance.getId())
                 .company(insurance.getCompany())
                 .status(insurance.getStatus())
+                .type(insurance.getType())
                 .name(insurance.getName())
                 .build()));
         return productList;
@@ -103,6 +104,7 @@ public class InsuranceServiceImpl implements InsuranceService {
                     .id(i.getId())
                     .name(i.getName())
                     .type(i.getType())
+                    .status(i.getStatus())
                     .guaranteeInfoList(guaranteeInfoStringList)
                     .salesTargetList(salesTargetStringList)
                     .build());

@@ -2,6 +2,7 @@ package system.insurance.backend.resource.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
