@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import system.insurance.backend.resource.dto.InsuranceDTO;
 import system.insurance.backend.resource.repository.InsuranceRepository;
 import system.insurance.backend.resource.service.InsuranceService;
+import system.insurance.backend.resource.service.SalesService;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,11 +17,11 @@ import java.util.List;
 @Slf4j
 class BackendApplicationTests {
 
-    private final InsuranceService insuranceService;
+    private final SalesService salesService;
 
     @Autowired
-    public BackendApplicationTests(InsuranceService insuranceService) {
-        this.insuranceService = insuranceService;
+    public BackendApplicationTests(SalesService salesService) {
+        this.salesService = salesService;
     }
 
     @Test
@@ -29,6 +30,8 @@ class BackendApplicationTests {
 
     @Test
     void dbTest() {
+//        this.salesService.instructionRegister("예시 지침 1", "예시 지침1 입니다.");;
+        Assert.assertEquals(this.salesService.getSalesInstructionList().get(0).getAuthor(), "");
 
 
 //        List<Employee> employeeList = this.employeeRepository.findAll();
@@ -47,7 +50,7 @@ class BackendApplicationTests {
 
     @Test
     void insuranceTest() {
-        List<InsuranceDTO> dto = this.insuranceService.getInsuranceProductList();
-        log.warn(dto.get(0).toString());
+//        List<InsuranceDTO> dto = this.insuranceService.getInsuranceProductList();
+//        log.warn(dto.get(0).toString());
     }
 }

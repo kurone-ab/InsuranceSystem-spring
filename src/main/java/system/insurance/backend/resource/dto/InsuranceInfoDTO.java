@@ -2,6 +2,7 @@ package system.insurance.backend.resource.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,12 @@ import java.util.Map;
 public class InsuranceInfoDTO {
     private final Map<String, String> companyList;
     private final Map<String, String> typeList;
-    private final Map<Integer, String> productNameList;
+    private final List<InsuranceDTO> productList;
 
     @Builder
-    public InsuranceInfoDTO(Map<String, String> companyList, Map<String, String> typeList, Map<Integer, String> productNameList){
+    public InsuranceInfoDTO(Map<String, String> companyList, Map<String, String> typeList, List<InsuranceDTO> productList){
         this.companyList = companyList;
         this.typeList = typeList;
-        this.productNameList = productNameList;
+        this.productList = productList;
     }
 }
