@@ -4,5 +4,10 @@
       "name": "file.insurance-authorization-doc",
       "type": "java.lang.String",
       "description": "Description for file.insurance-authorization-doc."
+    },
+    {
+      "name": "file.insurance-evaluation-report",
+      "type": "java.lang.String",
+      "description": "Description for file.insurance-evaluation-report."
     }
   ] }

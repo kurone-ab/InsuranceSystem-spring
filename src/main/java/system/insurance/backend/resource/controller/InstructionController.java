@@ -10,21 +10,21 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/sales")
-public class SalesController {
+@RequestMapping("/instruction")
+public class InstructionController {
     private final SalesService salesService;
 
     @Autowired
-    public SalesController(SalesService salesService) {
+    public InstructionController(SalesService salesService) {
         this.salesService = salesService;
     }
 
-    @PostMapping("/instruction/register")
+    @PostMapping("/sales/register")
     public ResponseEntity<Boolean> registerInstruction(@RequestBody Map<String, String> body) {
         return ResponseEntity.ok(this.salesService.instructionRegister(body.get("title"), body.get("instruction")));
     }
 
-    @GetMapping("/instruction/list")
+    @GetMapping("/sales/list")
     @ResponseBody
     public List<InstructionDTO> getInstructionList() {
         return this.salesService.getSalesInstructionList();

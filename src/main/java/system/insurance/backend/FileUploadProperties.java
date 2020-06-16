@@ -10,5 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class FileUploadProperties {
     private String uploadDir;
     private String insuranceAuthorizationDoc;
+    private String insuranceEvaluationReport;
 }
 
