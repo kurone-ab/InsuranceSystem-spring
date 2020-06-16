@@ -11,10 +11,10 @@ import java.util.Map;
 public class InsuranceInfoDTO {
     private final Map<String, String> companyList;
     private final Map<String, String> typeList;
-    private final List<InsuranceDTO> productList;
+    private final Map<Integer, InsuranceDTO> productList;
 
     @Builder
-    public InsuranceInfoDTO(Map<String, String> companyList, Map<String, String> typeList, List<InsuranceDTO> productList){
+    public InsuranceInfoDTO(Map<String, String> companyList, Map<String, String> typeList, Map<Integer, InsuranceDTO> productList){
         this.companyList = companyList;
         this.typeList = typeList;
         this.productList = productList;

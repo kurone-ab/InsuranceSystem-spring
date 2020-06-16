@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface InsuranceService {
     Map<String, String> getInsuranceCompanyList();
     Map<String, String> getInsuranceTypeList();
-    List<InsuranceDTO> getProductList();
+    Map<Integer, InsuranceDTO> getProductList();
     List<DevelopingInsuranceDTO> getDevelopingInsuranceList();
     Optional<InsuranceDTO> getInsuranceDetails(int id);
     boolean uploadAuthorizationDoc(MultipartFile file) throws IOException;

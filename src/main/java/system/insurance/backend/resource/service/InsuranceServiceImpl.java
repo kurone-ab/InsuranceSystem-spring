@@ -70,10 +70,10 @@ public class InsuranceServiceImpl implements InsuranceService {
     }
 
     @Override
-    public List<InsuranceDTO> getProductList() {
-        List<InsuranceDTO> productList = new ArrayList<>();
+    public Map<Integer, InsuranceDTO> getProductList() {
+        Map<Integer, InsuranceDTO> productList = new HashMap<>();
         List<Insurance> insuranceList = this.insuranceRepository.findAll();
-        insuranceList.forEach(insurance -> productList.add(InsuranceDTO.builder()
+        insuranceList.forEach(insurance -> productList.put(insurance.getId(), InsuranceDTO.builder()
                 .id(insurance.getId())
                 .company(insurance.getCompany())
                 .status(insurance.getStatus())
