@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserDTO {
+public class EmployeeDTO {
     private int id;
     private String name;
     private String auth;
 
     @Builder
-    public UserDTO(int id, String name, String auth) {
+    public EmployeeDTO(int id, String name, String auth) {
         this.id = id;
         this.name = name;
         this.auth = auth;

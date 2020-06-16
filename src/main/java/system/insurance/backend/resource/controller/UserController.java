@@ -7,7 +7,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.exception.NoEmployeeException;
-import system.insurance.backend.resource.dto.EmployeeDTO;
+import system.insurance.backend.resource.dto.UserDTO;
 import system.insurance.backend.resource.service.UserCertificationService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public EmployeeDTO loginUserCertification(@RequestBody String json, HttpServletResponse res) {
+    public UserDTO loginUserCertification(@RequestBody String json, HttpServletResponse res) {
         res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         JSONParser parser = new JSONParser(json);
         Map<String, Object> parsedJson;
