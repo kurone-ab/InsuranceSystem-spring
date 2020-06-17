@@ -10,6 +10,7 @@ import system.insurance.backend.resource.repository.InsuranceRepository;
 import system.insurance.backend.resource.service.InsuranceService;
 import system.insurance.backend.resource.service.SalesService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

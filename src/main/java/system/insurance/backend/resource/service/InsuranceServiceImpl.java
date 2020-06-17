@@ -9,6 +9,7 @@ import system.insurance.backend.exception.FileUploadException;
 import system.insurance.backend.exception.InvalidIdentifierException;
 import system.insurance.backend.insurance.*;
 import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
+import system.insurance.backend.resource.dto.GuaranteeInfoWrapper;
 import system.insurance.backend.resource.dto.InsuranceDTO;
 import system.insurance.backend.resource.repository.EvaluationReportRepository;
 import system.insurance.backend.resource.repository.GuaranteeInfoRepository;
@@ -21,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -103,14 +106,17 @@ public class InsuranceServiceImpl implements InsuranceService {
             Insurance i = insurance.get();
             List<GuaranteeInfo> guaranteeInfoList = this.guaranteeRepository.findAllByInsurance(i);
             List<SalesTarget> salesTargetList = this.salesTargetRepository.findAllByInsurance(i);
-            List<EvaluationReport> evaluationReportList = this.evaluationReportRepository.findAllByInsurance(insurance.get());
-            List<String> salesTargetStringList = new ArrayList<>();
-            Map<String, Long> guaranteeInfoStringList = new HashMap<>();
+            List<EvaluationReport> evaluationReportList = this.evaluationReportRepository.findAllByInsurance(i);
+            Map<Integer, String> salesTargetStringList = new HashMap<>();
+            Map<Integer, GuaranteeInfoWrapper> guaranteeInfoStringList = new HashMap<>();
             Map<Integer, String> evaluationInfo = new HashMap<>();
 
-            guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getGuaranteeCondition(), guaranteeInfo.getGuaranteeLimit()));
-            salesTargetList.forEach(salesTarget -> salesTargetStringList.add(salesTarget.getTarget()));
-            evaluationReportList.forEach(evaluationReport-> evaluationInfo.put(evaluationReport.getId(), evaluationReport.getDate() +
+            guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getId(), GuaranteeInfoWrapper.builder()
+                    .condition(guaranteeInfo.getGuaranteeCondition())
+                    .limit(guaranteeInfo.getGuaranteeLimit())
+                    .build()));
+            salesTargetList.forEach(salesTarget -> salesTargetStringList.put(salesTarget.getId(), salesTarget.getTarget()));
+            evaluationReportList.forEach(evaluationReport -> evaluationInfo.put(evaluationReport.getId(), evaluationReport.getDate() + " " +
                     new File(evaluationReport.getPath()).getName()));
             return Optional.of(InsuranceDTO.builder()
                     .id(i.getId())
@@ -133,13 +139,24 @@ public class InsuranceServiceImpl implements InsuranceService {
     }
 
     @Override
-    public boolean uploadEvaluationReport(MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        if (fileName.contains(".."))
-            throw new FileUploadException("파일명에 부적절한 문자가 포함되어 있습니다. " + fileName);
-        Path targetLocation = this.evaluationReportPath.resolve(fileName);
-        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        return true;
+    public boolean uploadEvaluationReport(List<MultipartFile> files, int insuranceId) throws IOException {
+        Optional<Insurance> insurance = this.insuranceRepository.findById(insuranceId);
+        if (insurance.isPresent()) {
+            for (MultipartFile file : files) {
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+                if (fileName.contains(".."))
+                    throw new FileUploadException("파일명에 부적절한 문자가 포함되어 있습니다. " + fileName);
+                Path targetLocation = this.evaluationReportPath.resolve(fileName);
+                Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                this.evaluationReportRepository.save(EvaluationReport.builder()
+                        .path(targetLocation.toString())
+                        .date(Date.valueOf(LocalDate.now()))
+                        .insurance(insurance.get())
+                        .build());
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
