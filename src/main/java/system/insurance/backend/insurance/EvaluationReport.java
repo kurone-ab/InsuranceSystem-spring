@@ -1,7 +1,6 @@
 package system.insurance.backend.insurance;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import system.insurance.backend.employee.Employee;
 
 import javax.persistence.*;
@@ -11,6 +10,7 @@ import java.sql.Date;
 @Table(name = "evaluation_report")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EvaluationReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,12 @@ public class EvaluationReport {
     @JoinColumn(name = "insurance", referencedColumnName = "id")
     private Insurance insurance;
     private Date date;
+
+    @Builder
+    public EvaluationReport(String path, Employee author, Insurance insurance, Date date) {
+        this.path = path;
+        this.author = author;
+        this.insurance = insurance;
+        this.date = date;
+    }
 }

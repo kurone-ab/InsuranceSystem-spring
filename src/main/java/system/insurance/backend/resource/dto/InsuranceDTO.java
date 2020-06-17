@@ -21,12 +21,12 @@ public class InsuranceDTO {
     private final String name;
     private final String author;
     private final Date date;
-    private final Map<String, Long> guaranteeInfoList;
-    private final List<String> salesTargetList;
+    private final Map<Integer, GuaranteeInfoWrapper> guaranteeInfoList;
+    private final Map<Integer, String> salesTargetList;
     private final Map<Integer, String> evaluationReportList;
 
     @Builder
-    public InsuranceDTO(int id, InsuranceType type, InsuranceCompany company, InsuranceStatus status, String name, String author, Date date, Map<String, Long> guaranteeInfos, List<String> salesTarget, Map<String, Long> guaranteeInfoList, List<String> salesTargetList, Map<Integer, String> evaluationReportList) {
+    public InsuranceDTO(int id, InsuranceType type, InsuranceCompany company, InsuranceStatus status, String name, String author, Date date, Map<Integer, GuaranteeInfoWrapper> guaranteeInfoList, Map<Integer, String> salesTargetList, Map<Integer, String> evaluationReportList) {
         this.id = id;
         this.type = type;
         this.company = company;

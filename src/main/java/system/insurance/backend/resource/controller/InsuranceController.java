@@ -14,6 +14,7 @@ import system.insurance.backend.resource.service.InsuranceService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/insurance")
@@ -56,9 +57,9 @@ public class InsuranceController {
     }
 
     @PostMapping("/evaluation")
-    public ResponseEntity<Boolean> uploadEvaluationReport(@RequestParam(name = "file")MultipartFile file) {
+    public ResponseEntity<Boolean> uploadEvaluationReport(@RequestParam(name = "report") List<MultipartFile> files, @RequestParam(name = "insuranceId") int id) {
         try {
-            return ResponseEntity.ok(this.insuranceService.uploadEvaluationReport(file));
+            return ResponseEntity.ok(this.insuranceService.uploadEvaluationReport(files, id));
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.ok(false);
@@ -68,7 +69,6 @@ public class InsuranceController {
     @GetMapping("/evaluation")
     public FileSystemResource downloadEvaluationReport(@RequestParam(name = "id")int id, HttpServletResponse res){
         res.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment");
-        System.out.println(id);
         try {
             return new FileSystemResource(this.insuranceService.downloadEvaluationReport(id));
         } catch (IOException e) {

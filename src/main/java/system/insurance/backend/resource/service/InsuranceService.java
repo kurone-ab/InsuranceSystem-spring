@@ -17,6 +17,7 @@ public interface InsuranceService {
     List<DevelopingInsuranceDTO> getDevelopingInsuranceList();
     Optional<InsuranceDTO> getInsuranceDetails(int id);
     boolean uploadAuthorizationDoc(MultipartFile file) throws IOException;
-    boolean uploadEvaluationReport(MultipartFile file) throws IOException;
+    boolean uploadEvaluationReport(List<MultipartFile> files, int insuranceId) throws IOException;
+
     File downloadEvaluationReport(int id) throws IOException;
 }
