@@ -4,20 +4,27 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import system.insurance.backend.resource.service.MailService;
-import system.insurance.backend.resource.service.SalesService;
+import system.insurance.backend.announcement.Announcement;
+import system.insurance.backend.resource.repository.AnnouncementRepository;
+import system.insurance.backend.resource.repository.ClientRepository;
+import system.insurance.backend.resource.repository.GuaranteeInfoRepository;
 
-import javax.mail.MessagingException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @SpringBootTest
 @Slf4j
 class BackendApplicationTests {
+//    private final AnnouncementRepository announcementRepository;
+//    private final ClientRepository clientRepository;
+//    private final GuaranteeInfoRepository guaranteeInfoRepository;
 
 
-    private final MailService mailService;
     @Autowired
-    public BackendApplicationTests(MailService mailService) {
-        this.mailService = mailService;
+    public BackendApplicationTests(AnnouncementRepository announcementRepository, ClientRepository clientRepository, GuaranteeInfoRepository guaranteeInfoRepository) {
+//        this.announcementRepository = announcementRepository;
+//        this.clientRepository = clientRepository;
+//        this.guaranteeInfoRepository = guaranteeInfoRepository;
     }
 
     @Test
@@ -49,5 +56,18 @@ class BackendApplicationTests {
     void insuranceTest() {
 //        List<InsuranceDTO> dto = this.insuranceService.getInsuranceProductList();
 //        log.warn(dto.get(0).toString());
+    }
+
+    @Test
+    void fakeDataGeneration() {
+//        for (int i = 0; i < 10; i++) {
+//            this.announcementRepository.save(
+//                    Announcement.builder()
+//                            .title("예시 공지 "+i)
+//                            .content("예시 공지 "+i)
+//                            .date(Date.valueOf(LocalDate.now()))
+//                            .build()
+//            );
+//        }
     }
 }

@@ -12,4 +12,8 @@ public interface ClientService {
     ClientDTO getRegisteringClientDetail(int cid) throws NoClientException;
 
     boolean setConformity(int cid, boolean conformity, String reason) throws NoClientException;
+
+    ClientDTO searchRegisteredByName(String name);
+    ClientDTO searchRegisteredByContact(String contact);
+    ClientDTO searchRegisteredByRRN(String rrn);
 }

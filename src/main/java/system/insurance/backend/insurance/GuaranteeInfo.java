@@ -19,6 +19,7 @@ public class GuaranteeInfo {
     private long guaranteeLimit;
     @Column(columnDefinition = "text")
     private String guaranteeCondition;
+    private boolean specialCondition;
 
     @Builder
     public GuaranteeInfo(Insurance insurance, long guaranteeLimit, String guaranteeCondition) {

@@ -3,6 +3,7 @@ package system.insurance.backend.resource.service;
 import org.springframework.stereotype.Service;
 import system.insurance.backend.client.Client;
 import system.insurance.backend.client.ClientType;
+import system.insurance.backend.client.RegisteredClient;
 import system.insurance.backend.client.RegisteringClient;
 import system.insurance.backend.contract.Contract;
 import system.insurance.backend.exception.InvalidIdentifierException;
@@ -10,16 +11,19 @@ import system.insurance.backend.exception.NoClientException;
 import system.insurance.backend.resource.dto.ClientDTO;
 import system.insurance.backend.resource.repository.ClientRepository;
 import system.insurance.backend.resource.repository.ContractRepository;
+import system.insurance.backend.resource.repository.RegisteredClientRepository;
 
 import java.util.*;
 
 @Service
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
+    private final RegisteredClientRepository registeredClientRepository;
     private final ContractRepository contractRepository;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ContractRepository contractRepository) {
+    public ClientServiceImpl(ClientRepository clientRepository, RegisteredClientRepository registeredClientRepository, ContractRepository contractRepository) {
         this.clientRepository = clientRepository;
+        this.registeredClientRepository = registeredClientRepository;
         this.contractRepository = contractRepository;
     }
 
@@ -60,5 +64,37 @@ public class ClientServiceImpl implements ClientService {
             this.clientRepository.save(client2);
         }));
         return true;
+    }
+
+    @Override
+    public ClientDTO searchRegisteredByName(String name) {
+        Optional<Client> client = this.registeredClientRepository.findByName(name);
+        if (client.isPresent()) return getClientDTO(client.get());
+        return ClientDTO.builder().build();
+    }
+
+    @Override
+    public ClientDTO searchRegisteredByContact(String contact) {
+        Optional<Client> client = this.registeredClientRepository.findByContact(contact);
+        if (client.isPresent()) return getClientDTO(client.get());
+        return ClientDTO.builder().build();
+    }
+
+    @Override
+    public ClientDTO searchRegisteredByRRN(String rrn) {
+        Optional<Client> client = this.registeredClientRepository.findByRrn(rrn);
+        if (client.isPresent()) return getClientDTO(client.get());
+        return ClientDTO.builder().build();
+    }
+
+    private ClientDTO getClientDTO(Client client) {
+        RegisteredClient registeredClient = (RegisteredClient) client;
+        Optional<Contract> contractOptional = this.contractRepository.findByClient(registeredClient);
+        Contract contract = contractOptional.orElseThrow(InvalidIdentifierException::new);
+        return ClientDTO.builder()
+                .id(registeredClient.getId())
+                .name(registeredClient.getName())
+                .insuranceName(contract.getInsurance().getName())
+                .contact(registeredClient.getContact()).build();
     }
 }

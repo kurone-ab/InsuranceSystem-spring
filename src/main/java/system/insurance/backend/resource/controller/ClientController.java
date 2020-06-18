@@ -1,11 +1,7 @@
 package system.insurance.backend.resource.controller;
 
-import org.checkerframework.common.reflection.qual.GetClass;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import system.insurance.backend.exception.NoClientException;
 import system.insurance.backend.resource.dto.ClientDTO;
 import system.insurance.backend.resource.service.ClientService;
@@ -34,5 +30,20 @@ public class ClientController {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/registered/search{name}")
+    public ResponseEntity<ClientDTO> searchRegisteredByName(@PathVariable String name){
+        return ResponseEntity.ok(this.clientService.searchRegisteredByName(name));
+    }
+
+    @GetMapping("/registered/search{contact}")
+    public ResponseEntity<ClientDTO> searchRegisteredByContact(@PathVariable String contact){
+        return ResponseEntity.ok(this.clientService.searchRegisteredByContact(contact));
+    }
+
+    @GetMapping("/registered/search{rrn}")
+    public ResponseEntity<ClientDTO> searchRegisteredByRRN(@PathVariable String rrn){
+        return ResponseEntity.ok(this.clientService.searchRegisteredByRRN(rrn));
     }
 }
