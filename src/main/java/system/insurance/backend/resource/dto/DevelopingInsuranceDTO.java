@@ -1,11 +1,13 @@
 package system.insurance.backend.resource.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.sql.Date;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DevelopingInsuranceDTO {
     private final int id;
     private final String name;
