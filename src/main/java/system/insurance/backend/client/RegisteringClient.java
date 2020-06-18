@@ -23,4 +23,5 @@ public class RegisteringClient extends Client{
     private Integer underWritingScore;
     private Boolean conformity;
     private String reason;
+    private String rrn;
 }

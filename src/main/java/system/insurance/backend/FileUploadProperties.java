@@ -11,5 +11,6 @@ public class FileUploadProperties {
     private String uploadDir;
     private String insuranceAuthorizationDoc;
     private String insuranceEvaluationReport;
+    private String companyReportTemplate;
 }
 
