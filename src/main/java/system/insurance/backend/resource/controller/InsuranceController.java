@@ -77,4 +77,8 @@ public class InsuranceController {
         }
     }
 
+    @PostMapping("/product/design")
+    public boolean insuranceDesign(@RequestParam(name = "eid") int eid, @RequestParam(name = "type") String type, @RequestParam(name = "name") String name,  @RequestParam(name = "limit") List<Long> limit, @RequestParam(name = "condition") List<String> condition, @RequestParam(name = "special")List<Boolean> special, @RequestParam(name = "targetClient")List<String> targetClient) {
+        return this.insuranceService.insuranceDesign(eid, type, name, limit, condition, special, targetClient);
+    }
 }

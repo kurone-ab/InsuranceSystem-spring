@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DiscriminatorValue("REGISTERING")
 public class RegisteringClient extends Client{
     @OneToOne
     private EnvironmentalFactor environmentalFactor;
