@@ -20,11 +20,14 @@ public class GuaranteeInfo {
     @Column(columnDefinition = "text")
     private String guaranteeCondition;
     private boolean specialCondition;
+    private long guaranteeFare;
 
     @Builder
-    public GuaranteeInfo(Insurance insurance, long guaranteeLimit, String guaranteeCondition) {
+    public GuaranteeInfo(Insurance insurance, long guaranteeLimit, String guaranteeCondition, boolean specialCondition, long guaranteeFare) {
         this.insurance = insurance;
         this.guaranteeLimit = guaranteeLimit;
         this.guaranteeCondition = guaranteeCondition;
+        this.specialCondition = specialCondition;
+        this.guaranteeFare = guaranteeFare;
     }
 }

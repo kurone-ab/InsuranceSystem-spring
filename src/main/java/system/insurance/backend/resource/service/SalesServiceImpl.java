@@ -1,6 +1,5 @@
 package system.insurance.backend.resource.service;
 
-import jdk.vm.ci.meta.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import system.insurance.backend.contract.Contract;
