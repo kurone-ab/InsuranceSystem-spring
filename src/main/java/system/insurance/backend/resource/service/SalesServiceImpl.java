@@ -1,5 +1,6 @@
 package system.insurance.backend.resource.service;
 
+import jdk.vm.ci.meta.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import system.insurance.backend.contract.Contract;
@@ -38,10 +39,12 @@ public class SalesServiceImpl implements SalesService {
 
 
     @Override
-    public boolean instructionRegister(String title, String instruction) {
+    public boolean instructionRegister(String title, String instruction, int id) {
         this.salesInstructionRepository.save(SalesInstruction.builder()
                 .title(title)
                 .instruction(instruction)
+                .type(InstructionType.SALES)
+                .date(Date.valueOf(LocalDate.now()))
                 .build());
         return true;
     }

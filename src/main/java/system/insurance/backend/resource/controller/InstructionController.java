@@ -21,7 +21,7 @@ public class InstructionController {
 
     @PostMapping("/sales/register")
     public ResponseEntity<Boolean> registerInstruction(@RequestBody Map<String, String> body) {
-        return ResponseEntity.ok(this.salesService.instructionRegister(body.get("title"), body.get("instruction")));
+        return ResponseEntity.ok(this.salesService.instructionRegister(body.get("title"), body.get("instruction"), Integer.parseInt(body.get("id"))));
     }
 
     @GetMapping("/sales/list")
