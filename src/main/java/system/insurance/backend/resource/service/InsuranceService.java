@@ -20,4 +20,6 @@ public interface InsuranceService {
     boolean uploadEvaluationReport(List<MultipartFile> files, int insuranceId) throws IOException;
 
     File downloadEvaluationReport(int id) throws IOException;
+
+    boolean insuranceDesign(int eid, String type, String name, List<Long> limit, List<String> condition, List<Boolean> special, List<String> targetClient);
 }

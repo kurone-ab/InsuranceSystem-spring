@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DiscriminatorValue("NOT_REGISTERED")
 public class NotRegisteredClient extends Client {
     private String gift;
 

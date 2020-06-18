@@ -5,16 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import system.insurance.backend.FileUploadProperties;
+import system.insurance.backend.employee.Employee;
 import system.insurance.backend.exception.FileUploadException;
 import system.insurance.backend.exception.InvalidIdentifierException;
 import system.insurance.backend.insurance.*;
 import system.insurance.backend.resource.dto.DevelopingInsuranceDTO;
 import system.insurance.backend.resource.dto.GuaranteeInfoWrapper;
 import system.insurance.backend.resource.dto.InsuranceDTO;
-import system.insurance.backend.resource.repository.EvaluationReportRepository;
-import system.insurance.backend.resource.repository.GuaranteeInfoRepository;
-import system.insurance.backend.resource.repository.InsuranceRepository;
-import system.insurance.backend.resource.repository.SalesTargetRepository;
+import system.insurance.backend.resource.repository.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,13 +33,15 @@ public class InsuranceServiceImpl implements InsuranceService {
     private final GuaranteeInfoRepository guaranteeRepository;
     private final SalesTargetRepository salesTargetRepository;
     private final EvaluationReportRepository evaluationReportRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public InsuranceServiceImpl(FileUploadProperties prop, InsuranceRepository insuranceRepository, GuaranteeInfoRepository guaranteeRepository, SalesTargetRepository salesTargetRepository, EvaluationReportRepository evaluationReportRepository) {
+    public InsuranceServiceImpl(FileUploadProperties prop, InsuranceRepository insuranceRepository, GuaranteeInfoRepository guaranteeRepository, SalesTargetRepository salesTargetRepository, EvaluationReportRepository evaluationReportRepository, EmployeeRepository employeeRepository) {
         this.insuranceRepository = insuranceRepository;
         this.guaranteeRepository = guaranteeRepository;
         this.salesTargetRepository = salesTargetRepository;
         this.evaluationReportRepository = evaluationReportRepository;
+        this.employeeRepository = employeeRepository;
         this.authorizationDocPath = Paths.get(prop.getInsuranceAuthorizationDoc())
                 .toAbsolutePath().normalize();
         this.evaluationReportPath = Paths.get(prop.getInsuranceEvaluationReport())
@@ -120,6 +120,7 @@ public class InsuranceServiceImpl implements InsuranceService {
                     new File(evaluationReport.getPath()).getName()));
             return Optional.of(InsuranceDTO.builder()
                     .id(i.getId())
+                    .name(i.getName())
                     .guaranteeInfoList(guaranteeInfoStringList)
                     .salesTargetList(salesTargetStringList)
                     .evaluationReportList(evaluationInfo)
@@ -166,5 +167,32 @@ public class InsuranceServiceImpl implements InsuranceService {
         throw new InvalidIdentifierException();
     }
 
-
+    @Override
+    public boolean insuranceDesign(int eid, String type, String name, List<Long> limit, List<String> condition, List<Boolean> special, List<String> targetClient) {
+        Optional<Employee> employeeOptional = this.employeeRepository.findById(eid);
+        Employee employee = employeeOptional.orElseThrow(InvalidIdentifierException::new);
+        Insurance insurance = this.insuranceRepository.save(Insurance.builder()
+                .author(employee)
+                .company(InsuranceCompany.HANHWA)
+                .date(Date.valueOf(LocalDate.now()))
+                .name(name)
+                .status(InsuranceStatus.DEVELOPING)
+                .type(InsuranceType.valueOf(type))
+                .build());
+        for (int i = 0; i < condition.size(); i++) {
+            this.guaranteeRepository.save(GuaranteeInfo.builder()
+                    .guaranteeCondition(condition.get(i))
+                    .guaranteeLimit(limit.get(i))
+                    .specialCondition(special.get(i))
+                    .insurance(insurance)
+                    .build());
+        }
+        for (String s : targetClient) {
+            this.salesTargetRepository.save(SalesTarget.builder()
+                    .insurance(insurance)
+                    .target(s)
+                    .build());
+        }
+        return true;
+    }
 }
