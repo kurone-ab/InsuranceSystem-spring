@@ -1,9 +1,6 @@
 package system.insurance.backend;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.insurance.Insurance;
 import system.insurance.backend.insurance.InsuranceCompany;
@@ -28,4 +25,12 @@ public class StrategyInvestigation {
     @ManyToOne
     @JoinColumn
     private Employee author;
+
+    @Builder
+    public StrategyInvestigation(Insurance insurance, String title, Date date, Employee author) {
+        this.insurance = insurance;
+        this.title = title;
+        this.date = date;
+        this.author = author;
+    }
 }

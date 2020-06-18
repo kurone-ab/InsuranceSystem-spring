@@ -1,9 +1,6 @@
 package system.insurance.backend;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import system.insurance.backend.employee.Employee;
 
 import javax.persistence.*;
@@ -27,4 +24,13 @@ public class MarketInvestigation {
     private String needs;
     @Column(length = 500)
     private String targetClient;
+
+    @Builder
+    public MarketInvestigation(String title, Date date, Employee author, String needs, String targetClient) {
+        this.title = title;
+        this.date = date;
+        this.author = author;
+        this.needs = needs;
+        this.targetClient = targetClient;
+    }
 }
