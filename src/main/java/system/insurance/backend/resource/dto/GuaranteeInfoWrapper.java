@@ -9,10 +9,12 @@ import lombok.Getter;
 public class GuaranteeInfoWrapper {
     private final long limit;
     private final String condition;
+    private final boolean special;
 
     @Builder
-    public GuaranteeInfoWrapper(long limit, String condition) {
+    public GuaranteeInfoWrapper(long limit, String condition, boolean special) {
         this.limit = limit;
         this.condition = condition;
+        this.special = special;
     }
 }

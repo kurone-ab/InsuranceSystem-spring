@@ -114,6 +114,7 @@ public class InsuranceServiceImpl implements InsuranceService {
             guaranteeInfoList.forEach(guaranteeInfo -> guaranteeInfoStringList.put(guaranteeInfo.getId(), GuaranteeInfoWrapper.builder()
                     .condition(guaranteeInfo.getGuaranteeCondition())
                     .limit(guaranteeInfo.getGuaranteeLimit())
+                    .special(guaranteeInfo.isSpecialCondition())
                     .build()));
             salesTargetList.forEach(salesTarget -> salesTargetStringList.put(salesTarget.getId(), salesTarget.getTarget()));
             evaluationReportList.forEach(evaluationReport -> evaluationInfo.put(evaluationReport.getId(), evaluationReport.getDate() + " " +
@@ -121,6 +122,7 @@ public class InsuranceServiceImpl implements InsuranceService {
             return Optional.of(InsuranceDTO.builder()
                     .id(i.getId())
                     .name(i.getName())
+                    .type(i.getType())
                     .guaranteeInfoList(guaranteeInfoStringList)
                     .salesTargetList(salesTargetStringList)
                     .evaluationReportList(evaluationInfo)
