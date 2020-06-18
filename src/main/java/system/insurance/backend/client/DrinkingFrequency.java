@@ -6,8 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public enum Job {
-    DRIVER("택배 기사"), HOUSEWIFE("전업 주부"), STUDENT("학생"), SOLDIER("직업 군인"), OFFICE_WORKER("직장인"), SELF_EMPLOYMENT("자영업자"),
-    NONE("무직");
+public enum DrinkingFrequency {
+    NONE("하지 않음"), YC("1년에 1번 이상"), SMC("6개월에 1번 이상"), TMC("3개월에 1번 이상"), OMC("1개월에 1번 이상");
     private final String description;
 }

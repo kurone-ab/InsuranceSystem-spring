@@ -1,117 +1,31 @@
 package system.insurance.backend.client;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.Optional;
 
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Client {
-    private static int size;
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(length = 15)
     private String contact;
     private int age;
+    @Enumerated(EnumType.STRING)
     private Sex sex;
+    @Column(length = 30)
     private String name;
+    @Column(length = 30)
     private String email;
-
-    public Client() {
-        this.id = ++size;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Optional<Boolean> isConsentPersonalInformation() {
-        return Optional.empty();
-    }
-
-    public void setConsentPersonalInformation(boolean consentPersonalInformation) {
-    }
-
-    public JoiningClient.EnvironmentalFactor getEnvironmentalFactor() {
-        return null;
-    }
-
-    public void setEnvironmentalFactor(JoiningClient.EnvironmentalFactor environmentalFactor) {
-    }
-
-    public JoiningClient.FinancialFactor getFinancialFactor() {
-        return null;
-    }
-
-    public void setFinancialFactor(JoiningClient.FinancialFactor financialFactor) {
-    }
-
-    public JoiningClient.MoralFactor getMoralFactor() {
-        return null;
-    }
-
-    public void setMoralFactor(JoiningClient.MoralFactor moralFactor) {
-    }
-
-    public JoiningClient.PhysicalFactor getPhysicalFactor() {
-        return null;
-    }
-
-    public void setPhysicalFactor(JoiningClient.PhysicalFactor physicalFactor) {
-    }
-
-    public int getInsuranceId() {
-        return -1;
-    }
-
-    public void setInsuranceId(int insuranceId) {
-    }
-
-    public String getRrn() {
-        return null;
-    }
-
-    public void setRrn(String rrn) {
-    }
-
-    public String getSubContact() {
-        return null;
-    }
-
-    public void setSubContact(String subContact) {
-    }
+    @Enumerated(EnumType.STRING)
+    private ClientType type;
 }
