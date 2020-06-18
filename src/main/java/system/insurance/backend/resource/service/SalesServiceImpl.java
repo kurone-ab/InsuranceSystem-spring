@@ -39,8 +39,10 @@ public class SalesServiceImpl implements SalesService {
 
 
     @Override
-    public boolean instructionRegister(String title, String instruction, int id) {
+    public boolean instructionRegister(String title, String instruction, int id) throws NoEmployeeException {
+        Employee employee = this.employeeRepository.findById(id).orElseThrow(NoEmployeeException::new);
         this.salesInstructionRepository.save(SalesInstruction.builder()
+                .author(employee)
                 .title(title)
                 .instruction(instruction)
                 .type(InstructionType.SALES)

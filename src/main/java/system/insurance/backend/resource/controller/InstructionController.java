@@ -3,6 +3,7 @@ package system.insurance.backend.resource.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import system.insurance.backend.exception.NoEmployeeException;
 import system.insurance.backend.resource.dto.InstructionDTO;
 import system.insurance.backend.resource.service.SalesService;
 
@@ -21,7 +22,12 @@ public class InstructionController {
 
     @PostMapping("/sales/register")
     public ResponseEntity<Boolean> registerInstruction(@RequestBody Map<String, String> body) {
-        return ResponseEntity.ok(this.salesService.instructionRegister(body.get("title"), body.get("instruction"), Integer.parseInt(body.get("id"))));
+        try {
+            return ResponseEntity.ok(this.salesService.instructionRegister(body.get("title"), body.get("instruction"), Integer.parseInt(body.get("id"))));
+        } catch (NoEmployeeException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(false);
+        }
     }
 
     @GetMapping("/sales/list")
