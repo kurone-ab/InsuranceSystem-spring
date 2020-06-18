@@ -1,6 +1,10 @@
 package system.insurance.backend.contract;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import system.insurance.backend.client.Client;
 import system.insurance.backend.employee.Employee;
 import system.insurance.backend.insurance.Insurance;
 
@@ -11,24 +15,29 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
+@DynamicUpdate
 public class Contract {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-//	private int clientId;
-//	private int payment;
+	@OneToOne
+	private Client client;
+	@ColumnDefault("0")
+	private int payment;
 	private Date dueDate;
-//	private boolean compensationProvision;
+	@ColumnDefault("false")
+	private boolean compensationProvision;
 	private String paymentStatus;
-	@ManyToOne(targetEntity = Insurance.class)
-	@JoinColumn(name = "insurance_id", referencedColumnName = "id")
+	@OneToOne
+	@JoinColumn
 	private Insurance insurance;
 	private Date startDate;
-	@ManyToOne(targetEntity = Employee.class)
-	@JoinColumn(name = "sales_person_id", referencedColumnName = "id")
+	@OneToOne
+	@JoinColumn
 	private Employee salesPerson;
-	@ManyToOne(targetEntity = Insurance.class)
-	@JoinColumn(name = "reinsurance_id", referencedColumnName = "id")
+	@OneToOne
+	@JoinColumn
 	private Insurance reinsurance;
 
 	@Builder

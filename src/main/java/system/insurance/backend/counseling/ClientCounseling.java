@@ -1,26 +1,32 @@
 package system.insurance.backend.counseling;
 
+import lombok.AccessLevel;
 import lombok.Builder;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import lombok.NoArgsConstructor;
+import system.insurance.backend.client.Client;
 import system.insurance.backend.employee.Employee;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "customer_counseling")
-public class CustomerCounseling {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "client_counseling")
+public class ClientCounseling {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(targetEntity = Employee.class)
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
+    @ManyToOne
     @JoinColumn(name = "counselor_id", referencedColumnName = "id")
     private Employee counselor;
     private String content;
     private Date date;
 
     @Builder
-    public CustomerCounseling(Employee counselor, String content, Date date) {
+    public ClientCounseling(Employee counselor, String content, Date date) {
         this.counselor = counselor;
         this.content = content;
         this.date = date;

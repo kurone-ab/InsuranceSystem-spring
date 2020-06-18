@@ -1,12 +1,13 @@
 package system.insurance.backend.client;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EnvironmentalFactor {
     @Id
@@ -19,6 +20,7 @@ public class EnvironmentalFactor {
     private Point residence;
     private String dangerousArea;
 
+    @Builder
     public EnvironmentalFactor(Job job, String dangerousHobby, Point residence, String dangerousArea) {
         this.job = job;
         this.dangerousHobby = dangerousHobby;

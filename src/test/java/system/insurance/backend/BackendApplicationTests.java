@@ -16,7 +16,7 @@ class BackendApplicationTests {
 
     private final MailService mailService;
     @Autowired
-    public BackendApplicationTests(SalesService salesService, MailService mailService) {
+    public BackendApplicationTests(MailService mailService) {
         this.mailService = mailService;
     }
 
@@ -26,11 +26,7 @@ class BackendApplicationTests {
 
     @Test
     void dbTest() {
-        try {
-            this.mailService.sendMail();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+
 //        this.salesService.instructionRegister("예시 지침 1", "예시 지침1 입니다.");;
 //        Assert.assertEquals(this.salesService.getSalesInstructionList().get(0).getAuthor(), "");
 
