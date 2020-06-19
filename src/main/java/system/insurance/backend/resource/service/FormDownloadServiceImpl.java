@@ -2,28 +2,23 @@ package system.insurance.backend.resource.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import system.insurance.backend.FileUploadProperties;
 import system.insurance.backend.exception.FileDownloadException;
 import system.insurance.backend.exception.FileUploadException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
 
 @Service
-public class FileStreamServiceImpl implements FileStreamService {
+public class FormDownloadServiceImpl implements FormDownloadService{
     private final Path fileLocation;
 
     @Autowired
-    public FileStreamServiceImpl(FileUploadProperties prop) {
-        this.fileLocation = Paths.get(prop.getUploadDir())
+    public FormDownloadServiceImpl(FileUploadProperties prop) {
+        this.fileLocation = Paths.get(prop.getCompanyReportTemplate())
                 .toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.fileLocation);
@@ -33,20 +28,10 @@ public class FileStreamServiceImpl implements FileStreamService {
     }
 
     @Override
-    public boolean upload(MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        if(fileName.contains(".."))
-            throw new FileUploadException("파일명에 부적합 문자가 포함되어 있습니다. " + fileName);
-        Path targetLocation = this.fileLocation.resolve(fileName);
-        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        return true;
-    }
-
-    @Override
-    public File download(String fileName) {
+    public File downloadForm(String fileName) throws IOException {
         Path filePath = this.fileLocation.resolve(fileName).normalize();
+        System.out.println();
         File file = new File(filePath.toAbsolutePath().toString());
-
         if(file.exists()) {
             return file;
         }else {
